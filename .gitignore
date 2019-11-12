@@ -1,0 +1,6 @@
+data/images/**/*.jpg
+data/images/**/*.JPG
+
+# OS and editor files
+.DS_Store
+*~
