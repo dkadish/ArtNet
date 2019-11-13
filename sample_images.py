@@ -13,7 +13,7 @@ N = 1000
 SEED = 2019                    # Because it is as good a number as any
 DATA_DIR = 'data/images/sample1000'
 
-assert hashlib.md5(open(DATAFILE,'rb').read()).hexdigest() == '83edafa71f53e51f45258c248b928e44'
+assert hashlib.md5(open(DATAFILE, 'rb').read()).hexdigest() == '83edafa71f53e51f45258c248b928e44'
 # FIXME: that data dir exists
 
 smk = pd.read_json(DATAFILE).set_index('id')
