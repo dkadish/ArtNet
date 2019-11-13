@@ -1,6 +1,10 @@
 data/images/**/*.jpg
 data/images/**/*.JPG
 
+# Python things
+__pycache__
+.ipynb_checkpoints
+
 # OS and editor files
 .DS_Store
 *~
