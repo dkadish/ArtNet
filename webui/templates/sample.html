@@ -5,5 +5,19 @@
   <section class="content">
     <h1>Welcome to ArtNet</h1>
     <div>This will be a ArtNet web ui.</div>
+
+    <h1>Upload image</h1>
+    <form action='/upload_image' method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Select image</label>
+        <div class="custom-file">
+          <input type="file" name="image" id="image">
+          <label for="image">Select image&hellip;</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+    </form>
+
   </section>
 </body>
