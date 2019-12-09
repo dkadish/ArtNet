@@ -1,7 +1,6 @@
-# Unittests for web user interface.
+# Unittests for ArtNet web user interface.
 
 import unittest
-import requests
 from webui import sample
 
 
