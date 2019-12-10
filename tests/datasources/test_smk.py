@@ -1,3 +1,4 @@
+"""Test the SMK datasource."""
 import unittest
 from datasources import Smk
 

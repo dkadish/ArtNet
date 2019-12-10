@@ -1,1 +1,1 @@
-from .Smk import Smk
+from .smk import Smk
