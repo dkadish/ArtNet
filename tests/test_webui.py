@@ -1,6 +1,7 @@
 # Unittests for ArtNet web user interface.
 
 import unittest
+from io import BytesIO
 from webui import sample
 
 
@@ -17,3 +18,11 @@ class TestWebUi(unittest.TestCase):
         resp = self.client.get('/hello_world')
         self.assertEqual(200, resp.status_code)
         self.assertEqual(b'Hello world!', resp.data)
+
+    def test_uploading_a_file_to_form_should_return_a_redirect(self):
+        """Test image upload using mock image data."""
+        resp = self.client.post(
+            '/upload_image',
+            content_type='multipart/form-data',
+            data={'image': (BytesIO(b'Image content'), 'filename.jpg')})
+        self.assertEqual(302, resp.status_code)

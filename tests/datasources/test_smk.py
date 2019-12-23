@@ -3,6 +3,7 @@ import unittest
 from datasources import Smk
 
 class TestSMK(unittest.TestCase):
+    """Generic tests for the class."""
     def setUp(self):
         self.smk = Smk()
 
@@ -14,6 +15,7 @@ class TestSMK(unittest.TestCase):
 
 
 class TestSMKSampling(unittest.TestCase):
+    """Test sampling of data."""
     def setUp(self):
         self.smk = Smk()
 
