@@ -5,6 +5,7 @@ data/images/**/*.JPG
 __pycache__
 .ipynb_checkpoints
 env
+.mypy_cache
 
 # OS and editor files
 .DS_Store
