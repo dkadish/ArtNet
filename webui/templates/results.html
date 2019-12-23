@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
+  </head>
+  <body>
+    <h1>Map</h1>
+    <div id='map'>
+    </div>
+    
+    <h1>Bounding boxes</h1>
+    <div id='bboxes'>{{bboxes}}</div>
+    
+    <h1>Probabilities</h1>
+    <div id='probs'>{{probs}}</div>
+
+    <script>
+      var bboxes = {{bboxes|safe}};
+      var probs = {{probs|safe}};
+      const svgns = 'http://www.w3.org/2000/svg';
+
+      container = document.querySelector('#map');
+      s = document.createElementNS(svgns, 'svg');
+      s.setAttributeNS(null, 'width', {{width}});
+      s.setAttributeNS(null, 'height', {{height}});
+      
+      rects = bboxes['bg'].map(bb => {
+          e = document.createElementNS(svgns, 'rect');
+          e.setAttributeNS(null, 'x', bb[0]);
+          e.setAttributeNS(null, 'y', bb[1]);
+          e.setAttributeNS(null, 'width', bb[2]);
+          e.setAttributeNS(null, 'height', bb[3]);
+          return e;
+      });
+
+      rects.forEach(rect => s.appendChild(rect));
+
+      container.appendChild(s);
+    </script>
+  </body>
+</html>
