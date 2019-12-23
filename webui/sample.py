@@ -29,6 +29,10 @@ def upload_image():
         model = ArtNetModel()
         app.logger.debug('Loaded model %s', model)
 
+        app.logger.debug('Predicting something')
+        pred = model.predict(blob)
+        app.logger.debug('Predicted', [v.shape for v in pred])
+
         return redirect(request.url)
 
     return render_template('sample.html')
