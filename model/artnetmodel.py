@@ -31,6 +31,7 @@ class ArtNetModel():
 
     def build_models(self):
         """Build models."""
+        self.logger.info("Building models.")
         self.class_mapping = {v: k for k, v in self.C.class_mapping.items()}
         img_input = Input(shape=(None, None, 3))
         roi_input = Input(shape=(self.C.num_rois, 4))
@@ -54,6 +55,7 @@ class ArtNetModel():
         model_classifier = Model([feature_map_input, roi_input], classifier)
 
         # Load weights
+        self.logger.info("Loading weights.")
         model_rpn.load_weights(self.C.model_path, by_name=True)
         model_classifier.load_weights(self.C.model_path, by_name=True)
 
@@ -128,15 +130,17 @@ class ArtNetModel():
                     pass
                 bboxes[cls_name].append([self.C.rpn_stride*x, self.C.rpn_stride*y, self.C.rpn_stride*(x+w), self.C.rpn_stride*(y+h)])
                 probs[cls_name].append(np.max(P_cls[0, ii, :]))
-        #-------------------------------
+        # -------------------------------
 
 
         # return Y1, Y2, F
         # return R
         # raise # enter Flask's interactive debugger thing
         return bboxes, probs, img.shape[0], img.shape[1]
+
     def construct_image(self, data):
         """Construct an image from received data."""
+        self.logger.info("Constructing image.")
         img = cv2.imdecode(np.asarray(bytearray(data)), cv2.IMREAD_UNCHANGED)
         self.logger.debug('Read image of shape %s', img.shape)
 

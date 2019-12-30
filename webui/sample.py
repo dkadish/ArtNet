@@ -1,15 +1,21 @@
 """A sample web UI for ArtNet."""
 
+import logging
 from flask import Flask, render_template, request, redirect
+from flask.logging import default_handler
 from model import ArtNetModel
 
 app = Flask(__name__)
 
+# Get the root logger, and channel the app.log there.
+# logging.basicConfig(filename="logs/sample.log")
+root_logger = logging.getLogger()
+root_logger.addHandler(default_handler)
 
 @app.route('/hello_world')
 def hello_world():
     """Just a test that Flask is up and running."""
-    return "Hello world!"
+    return "Hello world and everyone!"
 
 
 @app.route('/')
