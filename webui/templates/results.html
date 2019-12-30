@@ -11,11 +11,6 @@
       <svg id="map_bboxes">
     </div>
 
-    <h1>Uploaded image</h1>
-    <div id="upload">
-      <img id="uploaded_image">
-    </div>
-
     <h1>Bounding boxes</h1>
     <div id='bboxes'>{{bboxes}}</div>
 
@@ -28,12 +23,8 @@
       var probs = {{probs|safe}};
       const svgns = 'http://www.w3.org/2000/svg';
 
-      // Place the original image in the DOM, in two places
+      // Place the original image in the DOM
       document.querySelector('img#map_background').setAttribute(
-          'src', 'data:image/jpg;base64, ' + image
-      );
-
-      document.querySelector('img#uploaded_image').setAttribute(
           'src', 'data:image/jpg;base64, ' + image
       );
 

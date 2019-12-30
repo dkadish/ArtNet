@@ -136,7 +136,8 @@ class ArtNetModel():
         # return Y1, Y2, F
         # return R
         # raise # enter Flask's interactive debugger thing
-        return bboxes, probs, img.shape[0], img.shape[1]
+        (height, width, _) = img.shape
+        return bboxes, probs, width, height # Note swapped order
 
     def construct_image(self, data):
         """Construct an image from received data."""
