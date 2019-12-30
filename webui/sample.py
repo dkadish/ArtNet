@@ -1,6 +1,7 @@
 """A sample web UI for ArtNet."""
 
 import logging
+import base64
 from flask import Flask, render_template, request, redirect
 from flask.logging import default_handler
 from model import ArtNetModel
@@ -11,22 +12,26 @@ app = Flask(__name__)
 # logging.basicConfig(filename="logs/sample.log")
 root_logger = logging.getLogger()
 root_logger.addHandler(default_handler)
+root_logger.setLevel(logging.DEBUG)
 
 @app.route('/hello_world')
 def hello_world():
     """Just a test that Flask is up and running."""
+    app.logger.debug("Route /hello_world")
     return "Hello world and everyone!"
 
 
 @app.route('/')
 def index():
     """Index route."""
+    app.logger.debug("Route /")
     return render_template('sample.html')
 
 
 @app.route('/upload_image', methods=['GET', 'POST'])
 def upload_image():
     """Images get uploaded to this route."""
+    app.logger.debug("Route /upload_image")
     if request.method == 'POST':
         image = request.files['image']
         blob = image.read()
@@ -39,8 +44,14 @@ def upload_image():
         bboxes, probs, width, height = model.predict(blob)
         app.logger.debug('Predicted', bboxes, probs)
 
+        # Or image.seek(0) and then image
+        # image_echo = base64.b64encode(image.stream.read()).decode('ascii')
+        image_echo = base64.b64encode(blob).decode('ASCII')
+        app.logger.debug("Echoing %s", image_echo)
+
         # return redirect(request.url)
         return render_template('results.html',
+                               image=image_echo,
                                bboxes=bboxes, probs=probs,
                                width=width, height=height)
 

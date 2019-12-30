@@ -7,6 +7,11 @@
     <h1>Map</h1>
     <div id='map'>
     </div>
+
+    <h1>Uploaded image</h1>
+    <div id="upload">
+      <img id="uploaded_image">
+    </div>
     
     <h1>Bounding boxes</h1>
     <div id='bboxes'>{{bboxes}}</div>
@@ -15,9 +20,15 @@
     <div id='probs'>{{probs}}</div>
 
     <script>
+      var image = "{{image|safe}}";
       var bboxes = {{bboxes|safe}};
       var probs = {{probs|safe}};
       const svgns = 'http://www.w3.org/2000/svg';
+
+      // Place the original image in the DOM
+      document.querySelector('img#uploaded_image').setAttribute(
+          'src', 'data:image/png;base64, ' + image
+      );
 
       container = document.querySelector('#map');
       s = document.createElementNS(svgns, 'svg');
