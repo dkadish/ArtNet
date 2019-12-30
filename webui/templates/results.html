@@ -5,17 +5,20 @@
   </head>
   <body>
     <h1>Map</h1>
-    <div id='map'>
+
+    <div id="map">
+      <img id="map_background">
+      <svg id="map_bboxes">
     </div>
 
     <h1>Uploaded image</h1>
     <div id="upload">
       <img id="uploaded_image">
     </div>
-    
+
     <h1>Bounding boxes</h1>
     <div id='bboxes'>{{bboxes}}</div>
-    
+
     <h1>Probabilities</h1>
     <div id='probs'>{{probs}}</div>
 
@@ -25,16 +28,21 @@
       var probs = {{probs|safe}};
       const svgns = 'http://www.w3.org/2000/svg';
 
-      // Place the original image in the DOM
-      document.querySelector('img#uploaded_image').setAttribute(
-          'src', 'data:image/png;base64, ' + image
+      // Place the original image in the DOM, in two places
+      document.querySelector('img#map_background').setAttribute(
+          'src', 'data:image/jpg;base64, ' + image
       );
 
+      document.querySelector('img#uploaded_image').setAttribute(
+          'src', 'data:image/jpg;base64, ' + image
+      );
+
+      // Place the bounding boxes into an existing SVG element.
       container = document.querySelector('#map');
-      s = document.createElementNS(svgns, 'svg');
+      s = document.querySelector('svg#map_bboxes');
       s.setAttributeNS(null, 'width', {{width}});
       s.setAttributeNS(null, 'height', {{height}});
-      
+
       rects = bboxes['bg'].map(bb => {
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
@@ -45,8 +53,6 @@
       });
 
       rects.forEach(rect => s.appendChild(rect));
-
-      container.appendChild(s);
     </script>
   </body>
 </html>

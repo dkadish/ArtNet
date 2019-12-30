@@ -2,6 +2,11 @@ section {
     padding: 10%;
 }
 
+img#map_background,
+svg#map_bboxes {
+    position: absolute;
+}
+
 rect {
     fill: blue;
     fill-opacity: 0.01;

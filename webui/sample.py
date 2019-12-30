@@ -47,7 +47,7 @@ def upload_image():
         # Or image.seek(0) and then image
         # image_echo = base64.b64encode(image.stream.read()).decode('ascii')
         image_echo = base64.b64encode(blob).decode('ASCII')
-        app.logger.debug("Echoing %s", image_echo)
+        app.logger.debug("Echoing %d bytes of base64 encoded stuff", len(image_echo))
 
         # return redirect(request.url)
         return render_template('results.html',
