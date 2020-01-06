@@ -159,8 +159,9 @@ class ArtNetModel():
         return img
 
     def bboxes_onto_image(self, img, ratio, bboxes, probs):
-        "Draw bboxes onto image. Return a JPG.
-        Modifies the original image."
+        """Draw bboxes onto image. Return a JPG.
+
+        Modifies the original image."""
         self.logger.info("Drawing %d bboxes onto image", len(bboxes))
 
         class_mapping = self.C.class_mapping
