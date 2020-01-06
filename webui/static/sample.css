@@ -7,6 +7,10 @@ svg#map_bboxes {
     position: absolute;
 }
 
+img#image_with_bboxes {
+    max-width: 100%;
+}
+
 rect {
     fill: blue;
     fill-opacity: 0.01;

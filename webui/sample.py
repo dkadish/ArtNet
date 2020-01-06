@@ -71,8 +71,7 @@ def upload_image_image_predict_onto():
 
         app.logger.debug('Predicting something')
         prediction_bboxes = model.predict_onto_image(blob)
-        app.logger.debug('Predicted something, %s came out',
-                         prediction_bboxes)
+        app.logger.debug('Predicted something')
 
         # Or image.seek(0) and then image
         # image_echo = base64.b64encode(image.stream.read()).decode('ascii')
