@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
+    <title>ArtNet sample UI with bboxes on the image</title>
+  </head>
+  <body>
+    <h1>Map</h1>
+
+    <div id="map">
+      <img id="image_with_bboxes">
+    </div>
+
+    <script>
+      var image = "{{image|safe}}";
+
+      // Place the original image in the DOM
+      document.querySelector('img#image_with_bboxes').setAttribute(
+          'src', 'data:image/jpg;base64, ' + image
+      );
+
+    </script>
+  </body>
+</html>

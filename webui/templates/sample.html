@@ -19,5 +19,18 @@
       </div>
     </form>
 
+    <h2>For predicting bboxes onto the image</h2>
+    <form action='upload_image_predict_onto' method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Select image</label>
+        <div class="custom-file">
+          <input type="file" name="image" id="image">
+          <label for="image">Select image&hellip;</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+    </form>
+
   </section>
 </body>
