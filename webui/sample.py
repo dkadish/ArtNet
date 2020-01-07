@@ -58,7 +58,7 @@ def upload_image():
     return render_template('sample.html')
 
 @app.route('/upload_image_predict_onto', methods=['GET', 'POST'])
-def upload_image_image_predict_onto():
+def upload_image_predict_onto():
     """Images get uploaded to this route."""
     app.logger.debug("Route /upload_image")
     if request.method == 'POST':
