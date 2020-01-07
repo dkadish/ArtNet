@@ -19,9 +19,41 @@
           'src', 'data:image/jpg;base64, ' + image
       );
 
-      const bboxes = "{{ bboxes|safe }}";
-      const probs = "{{ probs|safe }}";
-      const ratio = "{{ ratio|safe }}";
+      const bboxes = {{ bboxes|safe }};
+      const probs = {{ probs|safe }};
+      const ratio = {{ ratio|safe }}
+
+      // DOM manipulation, wow
+      document.querySelector('img').id = "map_background";
+
+      // Create and include
+      s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      s.setAttribute("width", 2000);
+      s.setAttribute("height", 2000);
+      s.id = "map_bboxes";
+
+      document.querySelector('#map').appendChild(s);
+
+      // Transform them
+      function get_real_coordinates(ratio, x1, x2, y1, y2) {
+          real_x1 = x1 / ratio;
+          real_y1 = y1 / ratio;
+          real_x2 = x2 / ratio;
+          real_y2 = y2 / ratio;
+          return [real_x1, real_y1, real_x2 ,real_y2];
+      }
+
+      real_bboxes = bboxes.bg.map(bb => get_real_coordinates(ratio, bb[0], bb[1], bb[2], bb[3]));
+
+      // After transformation
+      real_bboxes.forEach(rb => {
+          e = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+          e.setAttribute('x', rb[0]);
+          e.setAttribute('y', rb[1]);
+          e.setAttribute('width', rb[2] - rb[0]);
+          e.setAttribute('height', rb[3] - rb[1]);
+          s.appendChild(e);
+      });
 
     </script>
   </body>

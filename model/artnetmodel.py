@@ -106,9 +106,9 @@ class ArtNetModel():
 
             for ii in range(P_cls.shape[1]):
 
-                # FIXME: What is going on in this conditional? It returns True and thus skips to next iteration
-                # if np.max(P_cls[0, ii, :]) < bbox_threshold or np.argmax(P_cls[0, ii, :]) == (P_cls.shape[2] - 1):
-                #    continue
+                # TODO: What is going on in this conditional? It returns True and thus skips to next iteration
+                if np.max(P_cls[0, ii, :]) < bbox_threshold or np.argmax(P_cls[0, ii, :]) == (P_cls.shape[2] - 1):
+                    continue
 
                 cls_name = self.class_mapping[np.argmax(P_cls[0, ii, :])]
 
@@ -185,6 +185,8 @@ class ArtNetModel():
                 (x1, y1, x2, y2) = new_boxes[jk,:]
 
                 (real_x1, real_y1, real_x2, real_y2) = self.get_real_coordinates(ratio, x1, y1, x2, y2)
+                self.logger.debug("made bbox [%d, %d, %d, %d]",
+                                  real_x1, real_y1, real_x2, real_y2)
 
                 cv2.rectangle(img,(real_x1, real_y1), (real_x2, real_y2), (int(class_to_color[key][0]), int(class_to_color[key][1]), int(class_to_color[key][2])),2)
 
