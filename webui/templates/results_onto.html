@@ -5,10 +5,11 @@
     <title>ArtNet sample UI with bboxes on the image</title>
   </head>
   <body>
-    <h1>Map</h1>
+    <h1>Recognized objects</h1>
 
     <div id="map">
       <img id="image_with_bboxes">
+      <svg id="map_bboxes">
     </div>
 
     <script>
@@ -27,12 +28,9 @@
       document.querySelector('img').id = "map_background";
 
       // Create and include
-      s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      s = document.querySelector('svg#map_bboxes');
       s.setAttribute("width", 2000);
       s.setAttribute("height", 2000);
-      s.id = "map_bboxes";
-
-      document.querySelector('#map').appendChild(s);
 
       // Transform them
       function get_real_coordinates(ratio, x1, x2, y1, y2) {
