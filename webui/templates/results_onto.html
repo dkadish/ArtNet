@@ -19,6 +19,10 @@
           'src', 'data:image/jpg;base64, ' + image
       );
 
+      const bboxes = "{{ bboxes|safe }}";
+      const probs = "{{ probs|safe }}";
+      const ratio = "{{ ratio|safe }}";
+
     </script>
   </body>
 </html>

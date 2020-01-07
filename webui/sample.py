@@ -70,7 +70,7 @@ def upload_image_predict_onto():
         app.logger.debug('Loaded model %s', model)
 
         app.logger.debug('Predicting something')
-        prediction_bboxes = model.predict_onto_image(blob)
+        prediction_bboxes, bboxes, probs, ratio = model.predict_onto_image(blob)
         app.logger.debug('Predicted something')
 
         # Or image.seek(0) and then image
@@ -86,6 +86,10 @@ def upload_image_predict_onto():
 
         # return redirect(request.url)
         return render_template('results_onto.html',
-                               image=image_bboxes)
+                               image=image_bboxes,
+                               bboxes=bboxes,
+                               probs=probs,
+                               ratio=ratio
+        )
 
     return render_template('sample.html')

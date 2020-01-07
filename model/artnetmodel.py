@@ -148,7 +148,7 @@ class ArtNetModel():
         img_bboxes = self.bboxes_onto_image(img, ratio, bboxes, probs)
         img_bboxes_jpg = cv2.imencode('.jpg', img_bboxes)[1].tostring()
 
-        return img_bboxes_jpg
+        return img_bboxes_jpg, bboxes, probs, ratio
 
     def construct_image(self, data):
         """Construct an image from received data."""
