@@ -1,6 +1,5 @@
-tensorflow<1.15
-keras<2.2.3
-keras_applications<1.0.8
-opencv-python
-numpy
+Pillow<7.0.0
+torch
+torchvision
+matplotlib
 flask
