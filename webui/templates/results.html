@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
   </head>
   <body>
+    <h1><span id="so_many"></span> bounding boxes</h1>
     <div id="map">
       <img id="map_background" src="data:image/jpg;base64, {{image}}">
       <svg id="map_bboxes"
@@ -35,14 +36,15 @@
       var mask = probs.map(p => p > 0.6);
       bboxes_probable = bboxes.filter((item, i) => mask[i]);
       console.log(bboxes_probable);
+      document.querySelector("#so_many").innerText = bboxes_probable.length;
 
       // And add them
       var rects = bboxes_probable.map(bb => {
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
-          e.setAttributeNS(null, 'y', bb[1]);
-          e.setAttributeNS(null, 'width', bb[2] - bb[0]);
-          e.setAttributeNS(null, 'height', bb[3] - bb[1]);
+          e.setAttributeNS(null, 'y', height - bb[1]);
+          e.setAttributeNS(null, 'width', bb[2]);
+          e.setAttributeNS(null, 'height', bb[3]);
           return e;
       });
 
