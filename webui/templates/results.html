@@ -4,18 +4,11 @@
     <link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
   </head>
   <body>
-    <h1>Map</h1>
-
     <div id="map">
-      <img id="map_background">
-      <svg id="map_bboxes">
+      <img id="map_background" src="data:image/jpg;base64, {{image}}">
+      <svg id="map_bboxes"
+           width="{{width}}" height="{{height}}">
     </div>
-
-    <h1>Bounding boxes</h1>
-    <div id='bboxes'>{{bboxes}}</div>
-
-    <h1>Probabilities</h1>
-    <div id='probs'>{{probs}}</div>
 
     <script>
       const svgns = 'http://www.w3.org/2000/svg';
@@ -26,15 +19,17 @@
       var height = {{height|safe}};
 
       // Place the original image in the DOM
+      /*
       document.querySelector('img#map_background').setAttribute(
           'src', 'data:image/jpg;base64, ' + image
       );
+      */
 
       // Place the bounding boxes into an existing SVG element.
       container = document.querySelector('#map');
       var s = document.querySelector('svg#map_bboxes');
-      s.setAttributeNS(null, 'width', width);
-      s.setAttributeNS(null, 'height', height);
+      // s.setAttributeNS(null, 'width', width);
+      // s.setAttributeNS(null, 'height', height);
 
       // Create a mask of probable bboxes
       var mask = probs.map(p => p > 0.6);
@@ -46,8 +41,8 @@
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
           e.setAttributeNS(null, 'y', bb[1]);
-          e.setAttributeNS(null, 'width', bb[2]);
-          e.setAttributeNS(null, 'height', bb[3]);
+          e.setAttributeNS(null, 'width', bb[2] - bb[0]);
+          e.setAttributeNS(null, 'height', bb[3] - bb[1]);
           return e;
       });
 

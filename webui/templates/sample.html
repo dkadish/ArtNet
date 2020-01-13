@@ -4,12 +4,11 @@
 <body>
   <section class="content">
     <h1>Welcome to ArtNet</h1>
-    <div>This will be a ArtNet web ui.</div>
+    <div>Upload an image, our model tries to detect people in it and
+    indicate them with blue bounding boxes.</div>
 
-    <h1>Upload image</h1>
-    <form action='upload_image' method="POST" enctype="multipart/form-data">
+    <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
       <div class="form-group">
-        <label>Select image</label>
         <div class="custom-file">
           <input type="file" name="image" id="image" required>
           <label for="image">Select image&hellip;</label>
