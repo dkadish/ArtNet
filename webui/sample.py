@@ -2,9 +2,10 @@
 
 import logging
 import base64
+import io
 from flask import Flask, render_template, request, redirect
 from flask.logging import default_handler
-from model import ArtNetModel
+from artnetmodel import ArtNetModel
 
 app = Flask(__name__)
 
@@ -37,22 +38,27 @@ def upload_image():
         blob = image.read()
         app.logger.debug('Received %s, %d bytes', image, len(blob))
 
-        model = ArtNetModel()
+        model = ArtNetModel('results/models/model-10000.pth')
         app.logger.debug('Loaded model %s', model)
 
         app.logger.debug('Predicting something')
-        bboxes, probs, width, height = model.predict(blob)
-        app.logger.debug('Predicted', bboxes, probs)
+        bboxes, classes, probs = model.predict(io.BytesIO(blob))
+        app.logger.debug('Predicted', bboxes, classes, probs)
 
         # Or image.seek(0) and then image
         # image_echo = base64.b64encode(image.stream.read()).decode('ascii')
         image_echo = base64.b64encode(blob).decode('ASCII')
         app.logger.debug("Echoing %d bytes of base64 encoded stuff", len(image_echo))
 
+        width = 5000
+        height = 5000
+        
         # return redirect(request.url)
         return render_template('results.html',
                                image=image_echo,
-                               bboxes=bboxes, probs=probs,
+                               bboxes=bboxes.tolist(),
+                               classes=classes.tolist(),
+                               probs=probs.tolist(),
                                width=width, height=height)
 
     return render_template('sample.html')

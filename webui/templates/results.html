@@ -19,8 +19,10 @@
 
     <script>
       var image = "{{image|safe}}";
-      var bboxes = {{bboxes|safe}};
-      var probs = {{probs|safe}};
+      // var bboxes = {{bboxes|safe}};
+      // var probs = {{probs|safe}};
+      var width = {{width|safe}};
+      var height = {{height|safe}};
       const svgns = 'http://www.w3.org/2000/svg';
 
       // Place the original image in the DOM
@@ -31,9 +33,10 @@
       // Place the bounding boxes into an existing SVG element.
       container = document.querySelector('#map');
       s = document.querySelector('svg#map_bboxes');
-      s.setAttributeNS(null, 'width', {{width}});
-      s.setAttributeNS(null, 'height', {{height}});
+      s.setAttributeNS(null, 'width', width);
+      s.setAttributeNS(null, 'height', height);
 
+      /*
       rects = bboxes['bg'].map(bb => {
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
@@ -44,6 +47,7 @@
       });
 
       rects.forEach(rect => s.appendChild(rect));
+      */
     </script>
   </body>
 </html>
