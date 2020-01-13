@@ -2,9 +2,10 @@
 
 import logging
 import base64
-import io
+from io import BytesIO
 from flask import Flask, render_template, request, redirect
 from flask.logging import default_handler
+from PIL import Image
 from artnetmodel import ArtNetModel
 
 app = Flask(__name__)
@@ -34,28 +35,32 @@ def upload_image():
     """Images get uploaded to this route."""
     app.logger.debug("Route /upload_image")
     if request.method == 'POST':
-        image = request.files['image']
-        blob = image.read()
-        app.logger.debug('Received %s, %d bytes', image, len(blob))
+        payload = request.files['image']
+        image = Image.open(payload)
+
+        # blob = ui.BytesIO(image).getvalue()
+        # blob = payload.read()
+        # image = Image.open(blob)
+        app.logger.debug("Received %s", image)
 
         model = ArtNetModel('results/models/model-10000.pth')
         app.logger.debug('Loaded model %s', model)
 
         app.logger.debug('Predicting something')
-        bboxes, classes, probs = model.predict(io.BytesIO(blob))
+        bboxes, classes, probs = model.predict(image)
         app.logger.debug('Predicted', bboxes, classes, probs)
 
-        # Or image.seek(0) and then image
-        # image_echo = base64.b64encode(image.stream.read()).decode('ascii')
-        image_echo = base64.b64encode(blob).decode('ASCII')
-        app.logger.debug("Echoing %d bytes of base64 encoded stuff", len(image_echo))
+        width, height = image.size
 
-        width = 5000
-        height = 5000
-        
+        # Echo the image back to the user
+        buf = BytesIO()
+        image.save(buf, format="JPEG")
+        payload_echo = base64.b64encode(buf.getvalue()).decode('ASCII')
+        app.logger.debug("Echoing %d bytes of base64 encoded stuff", len(payload_echo))
+
         # return redirect(request.url)
         return render_template('results.html',
-                               image=image_echo,
+                               image=payload_echo,
                                bboxes=bboxes.tolist(),
                                classes=classes.tolist(),
                                probs=probs.tolist(),

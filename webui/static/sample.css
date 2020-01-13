@@ -2,12 +2,18 @@ section {
     padding: 10%;
 }
 
+#map {
+    transform: scale(0.3);
+}
+
 img#map_background,
 svg#map_bboxes {
     position: absolute;
 }
 
 rect {
+    stroke: blue;
+    stroke-width: 50;
     fill: blue;
     fill-opacity: 0.01;
 }

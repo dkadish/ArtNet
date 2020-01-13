@@ -6,6 +6,7 @@ sys.path.insert(0, '../../easy-faster-frcnn.pytorch')
 logging.debug("sys.path now %s", sys.path)
 import torch
 import glob
+import numpy as np
 from PIL import ImageDraw, ImageFont
 from torchvision.transforms import transforms
 from dataset.base import Base as DatasetBase
@@ -45,7 +46,8 @@ class ArtNetModel():
     def predict(self, data):
         """Predict objects from data."""
         with torch.no_grad():
-            image = transforms.Image.open(data)
+            # image = transforms.Image.open(data)
+            image = data
             image_tensor, scale = self.dataset_class.preprocess(
                 image,
                 Config.IMAGE_MIN_SIDE,
@@ -59,6 +61,10 @@ class ArtNetModel():
             self.logger.debug("Classes %s", detection_classes)
             self.logger.debug("Probs %s", detection_probs)
 
-            return detection_bboxes, detection_classes, detection_probs
+            # Some bboxes might have nan coordinates; prune them
+            mask = ~np.isnan(detection_bboxes).any(axis=1).bool()
+            self.logger.debug("Pruned from %d to %d bboxes",
+                              len(detection_bboxes),
+                              len(mask))
 
-        # return bboxes, probs, width, height # Note swapped order
+            return detection_bboxes[mask], detection_classes[mask], detection_probs[mask]

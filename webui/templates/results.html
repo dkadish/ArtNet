@@ -18,12 +18,12 @@
     <div id='probs'>{{probs}}</div>
 
     <script>
+      const svgns = 'http://www.w3.org/2000/svg';
       var image = "{{image|safe}}";
-      // var bboxes = {{bboxes|safe}};
-      // var probs = {{probs|safe}};
+      var bboxes = {{bboxes|safe}};
+      var probs = {{probs|safe}};
       var width = {{width|safe}};
       var height = {{height|safe}};
-      const svgns = 'http://www.w3.org/2000/svg';
 
       // Place the original image in the DOM
       document.querySelector('img#map_background').setAttribute(
@@ -32,12 +32,17 @@
 
       // Place the bounding boxes into an existing SVG element.
       container = document.querySelector('#map');
-      s = document.querySelector('svg#map_bboxes');
+      var s = document.querySelector('svg#map_bboxes');
       s.setAttributeNS(null, 'width', width);
       s.setAttributeNS(null, 'height', height);
 
-      /*
-      rects = bboxes['bg'].map(bb => {
+      // Create a mask of probable bboxes
+      var mask = probs.map(p => p > 0.6);
+      bboxes_probable = bboxes.filter((item, i) => mask[i]);
+      console.log(bboxes_probable);
+
+      // And add them
+      var rects = bboxes_probable.map(bb => {
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
           e.setAttributeNS(null, 'y', bb[1]);
@@ -47,7 +52,13 @@
       });
 
       rects.forEach(rect => s.appendChild(rect));
-      */
+
+      // Scale down the container which has both the original and the
+      // bounding boxes in it.
+      var scale = window.innerWidth / (width * 2);
+      var m = document.querySelector('#map');
+      m.style.transform = "scale(" + scale + ")";
+
     </script>
   </body>
 </html>
