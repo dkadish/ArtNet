@@ -1,22 +1,27 @@
 <!doctype html>
-<title>ArtNet</title>
-<link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
-<body>
-  <section class="content">
-    <h1>Welcome to ArtNet</h1>
-    <div>Upload an image, our model tries to detect people in it and
-    indicate them with blue bounding boxes.</div>
+<html>
+  <head>
+    <title>ArtNet sample interface</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='sample.css') }}">
+  </head>
 
-    <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <div class="custom-file">
-          <input type="file" name="image" id="image" required>
-          <label for="image">Select image&hellip;</label>
+  <body>
+    <section class="content">
+      <h1>Welcome to ArtNet</h1>
+      <div>Upload an image, our model tries to detect people in it and
+        indicate them with blue bounding boxes.</div>
+
+      <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <div class="custom-file">
+            <input type="file" name="image" id="image" required>
+            <label for="image">Select image&hellip;</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Upload</button>
         </div>
+      </form>
 
-        <button type="submit" class="btn btn-primary">Upload</button>
-      </div>
-    </form>
-
-  </section>
-</body>
+    </section>
+  </body>
+</html>
