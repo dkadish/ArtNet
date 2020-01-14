@@ -25,7 +25,7 @@ img#map_background {
 
 rect {
     stroke: blue;
-    stroke-width: 50;
+    stroke-width: 25;
     fill: blue;
     fill-opacity: 0.01;
 }

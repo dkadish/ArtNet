@@ -32,19 +32,20 @@
       // s.setAttributeNS(null, 'width', width);
       // s.setAttributeNS(null, 'height', height);
 
-      // Create a mask of probable bboxes
+      // Create a mask of probable bboxes.
       var mask = probs.map(p => p > 0.6);
       bboxes_probable = bboxes.filter((item, i) => mask[i]);
       console.log(bboxes_probable);
       document.querySelector("#so_many").innerText = bboxes_probable.length;
 
-      // And add them
+      // And add them.
+      // TODO: Would benefit from object with attribute names
       var rects = bboxes_probable.map(bb => {
           e = document.createElementNS(svgns, 'rect');
           e.setAttributeNS(null, 'x', bb[0]);
-          e.setAttributeNS(null, 'y', height - bb[1]);
-          e.setAttributeNS(null, 'width', bb[2]);
-          e.setAttributeNS(null, 'height', bb[3]);
+          e.setAttributeNS(null, 'y', bb[1]);
+          e.setAttributeNS(null, 'width', bb[2] - bb[0]);
+          e.setAttributeNS(null, 'height', bb[3] - bb[1]);
           return e;
       });
 
