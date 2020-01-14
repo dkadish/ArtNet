@@ -8,6 +8,7 @@ import torch
 import glob
 import numpy as np
 from PIL import ImageDraw, ImageFont
+from sparklines import sparklines
 from torchvision.transforms import transforms
 from dataset.base import Base as DatasetBase
 from backbone.base import Base as BackboneBase
@@ -62,8 +63,18 @@ class ArtNetModel():
             self.logger.debug("Bboxes %s", detection_bboxes)
             self.logger.debug("Classes %s", detection_classes)
             self.logger.debug("Probs %s", detection_probs)
+            self.logger.debug("Probs distribution %s",
+                              sparklines(detection_probs.tolist()))
+            probs_freq, probs_bins = np.histogram(detection_probs.tolist(),
+                                                  range=(0, 1))
+            self.logger.debug("Histogram of probs distribution %d %s %d",
+                              probs_bins[0],
+                              sparklines(probs_freq),
+                              probs_bins[-1]
+            )
 
             # Some bboxes might have nan coordinates; prune them
+            # TODO: Is this still so?
             mask = ~np.isnan(detection_bboxes).any(axis=1).bool()
             self.logger.debug("Pruned from %d to %d bboxes",
                               len(detection_bboxes),
