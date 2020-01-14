@@ -1,8 +1,6 @@
 # ArtNet
 
-ArtNet dataset construction project at ITU
-
-Due to some Flask interaction something something, requires TensorFlow < 1.14, see [ModuleNotFoundError: No module named 'tensorflow_core.keras' in Flask](https://github.com/tensorflow/tensorflow/issues/34607)
+ArtNet dataset construction project at ITU. This is an object recognition model based on [*pottershu*'s Python implementation of Faster-RCNN](https://github.com/potterhsu/easy-faster-rcnn.pytorch), and trained on open data from [National Gallery of Denmark](https://smk.dk).
 
 # Web interface
 
@@ -14,3 +12,5 @@ When starting from command line, rather than WSGI etc, in directory ArtNet say
     # export FLASK_ENV="development"
     # flask run
     python3 -m flask run # not `flask run` because it might run system wide flask
+
+![](webui-with-slider.gif)
