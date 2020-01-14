@@ -6,22 +6,30 @@
   </head>
 
   <body>
+    <header><a href="{{ url_for('index') }}">ArtNet</a></header>
+
     <section class="content">
+      <section id="intro">
       <h1>Welcome to ArtNet</h1>
-      <div>Upload an image, our model tries to detect people in it and
-        indicate them with blue bounding boxes.</div>
+      <p id="intro">Upload an image, our model tries to detect people in it and
+        indicate them with blue bounding boxes.</p>
+      </section>
 
-      <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <div class="custom-file">
-            <input type="file" name="image" id="image" required>
-            <label for="image">Select image&hellip;</label>
+      <section id="upload-image-form">
+        <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" name="image" id="image" required>
+              <label for="image">Select image&hellip;</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
           </div>
-
-          <button type="submit" class="btn btn-primary">Upload</button>
-        </div>
-      </form>
+        </form>
+      </section>
 
     </section>
+
+    <footer>IT University of Copenhagen</footer>
   </body>
 </html>

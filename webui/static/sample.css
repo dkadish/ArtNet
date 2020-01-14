@@ -1,17 +1,44 @@
 body {
     font-family: arial;
+    margin: 0;
 }
 
-section {
+header {
+    font-size: xx-large;
+    font-family: times;
+    padding: 30px;
+    background: repeating-linear-gradient(
+        45deg,
+        ghostwhite,
+        linen 10px,
+        snow 50px,
+        lightgrey 10px
+    );
+}
+
+header a,
+header a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+section.content {
     padding: 10%;
+}
+
+section#intro {
+    padding-bottom: 20vw;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    font-size: smaller;
+    padding: 5vw 5vw 10vw 5vw;
 }
 
 #map {
     transform-origin: left top;
-}
-
-#upload_form {
-    padding-top: 20vw;
 }
 
 img#map_background,

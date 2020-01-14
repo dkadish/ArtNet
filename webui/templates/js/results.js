@@ -58,7 +58,7 @@ slider.oninput = function(e) {
 
 // Scale down the container which has both the original and the
 // bounding boxes in it.
-var scale = window.innerWidth / (width * 2);
+var scale = window.innerWidth / (width * 1.3);
 var m = document.querySelector('#map');
 m.style.transform = "scale(" + scale + ")";
 m.style.height = height * scale + "px"

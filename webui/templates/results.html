@@ -6,21 +6,40 @@
   </head>
 
   <body>
-    <section class="content">
-      <h1>ArtNet</h1>
-      <div id="map">
-        <img id="map_background" src="data:image/jpg;base64, {{image}}">
-        <svg id="map_bboxes"
-             width="{{width}}" height="{{height}}">
-      </div>
+    <header><a href="{{ url_for('index') }}">ArtNet</a></header>
 
-      <div id="ui">
-        <input id="prob-slider" type="range" class="slider"
-               min="0" max="1" step="0.01" value="0.6">
-        <label for="prob-slider">Select confidence level</label>
-        <p><span id="so_many"></span> bounding box(es) found at confidence &ge; <span id="prob-slider-echo"></span></p>
-      </div>
+    <section class="content">
+      <section id="result">
+        <div id="map">
+          <img id="map_background" src="data:image/jpg;base64, {{image}}">
+          <svg id="map_bboxes"
+               width="{{width}}" height="{{height}}">
+        </div>
+
+        <div id="ui">
+          <input id="prob-slider" type="range" class="slider"
+                 min="0" max="1" step="0.01" value="0.6">
+          <label for="prob-slider">Select confidence level</label>
+          <p><span id="so_many"></span> bounding box(es) found at confidence &ge; <span id="prob-slider-echo"></span></p>
+        </div>
+      </section>
+
+      <section id="upload-image-form">
+        <h2>Try another image</h2>
+        <form id="upload_form" action='upload_image' method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" name="image" id="image" required>
+              <label for="image">Select image&hellip;</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+        </form>
+      </section>
     </section>
+
+    <footer>IT University of Copenhagen</footer>
 
     <script>{% include 'js/results.js' %}</script>
   </body>
