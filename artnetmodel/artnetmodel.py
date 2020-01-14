@@ -22,7 +22,7 @@ class ArtNetModel():
 
     def __init__(self, filename):
         """Initialize the class."""
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
 
         self.dataset_class = DatasetBase.from_name('voc2007')
@@ -39,9 +39,11 @@ class ArtNetModel():
 
     def load(self, filename):
         """Load the weights from file."""
-        state_dict = torch.load(filename,
+        self.logger.debug("Loading from %s", filename)
+        checkpoint = torch.load(filename,
                                 map_location=torch.device('cpu'))
-        self.model.load_state_dict(state_dict, strict=False)
+        self.model.load_state_dict(checkpoint['state_dict'])
+        # TODO: Add some check here that loading went as intended
 
     def predict(self, data):
         """Predict objects from data."""
@@ -53,7 +55,7 @@ class ArtNetModel():
                 Config.IMAGE_MIN_SIDE,
                 Config.IMAGE_MAX_SIDE)
 
-            self.logger.debug("Ok predicting...")
+            self.logger.debug("Ok predicting from %s", image)
             detection_bboxes, detection_classes, detection_probs, _ = self.model.eval().forward(image_tensor.unsqueeze(dim=0).cpu())
             detection_bboxes /= scale
 
@@ -65,6 +67,6 @@ class ArtNetModel():
             mask = ~np.isnan(detection_bboxes).any(axis=1).bool()
             self.logger.debug("Pruned from %d to %d bboxes",
                               len(detection_bboxes),
-                              len(mask))
+                              sum(mask))
 
             return detection_bboxes[mask], detection_classes[mask], detection_probs[mask]
