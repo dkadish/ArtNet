@@ -39,6 +39,7 @@ footer {
 
 #map {
     transform-origin: left top;
+    z-index: -1;
 }
 
 img#map_background,

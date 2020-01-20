@@ -36,7 +36,7 @@ def upload_image():
     app.logger.debug("Route /upload_image")
     if request.method == 'POST':
         payload = request.files['image']
-        image = Image.open(payload)
+        image = Image.open(payload).convert('RGB')
 
         # blob = ui.BytesIO(image).getvalue()
         # blob = payload.read()
