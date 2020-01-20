@@ -12,7 +12,7 @@ function linearScale(num, in_min, in_max, out_min, out_max) {
 
 // Calculate opacity from threshold
 function calcOpacity(v) {
-    return linearScale(v, 0, 1, 0.2, 1);
+    return linearScale(v, 0, 1, 0.1, 1);
 }
 
 // TODO: Would benefit from object with attribute names

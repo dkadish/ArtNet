@@ -44,11 +44,11 @@ def upload_image():
         app.logger.debug("Received %s", image)
 
         model = ArtNetModel('results/models/model-10000.pth')
-        app.logger.debug('Loaded model %s', model)
+        app.logger.debug("Loaded model %s", model)
 
-        app.logger.debug('Predicting something')
+        app.logger.debug("Predicting something")
         bboxes, classes, probs = model.predict(image)
-        app.logger.debug('Predicted', bboxes, classes, probs)
+        app.logger.debug("Predicted %d bboxes", len(bboxes))
 
         width, height = image.size
 

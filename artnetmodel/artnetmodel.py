@@ -72,6 +72,11 @@ class ArtNetModel():
                               sparklines(probs_freq),
                               probs_bins[-1]
             )
+            self.logger.debug("Pruned Histogram of probs distribution %d %s %d",
+                              probs_bins[1],
+                              sparklines(probs_freq[1:]),
+                              probs_bins[-1]
+            )
 
             # Some bboxes might have nan coordinates; prune them
             # TODO: Is this still so?
