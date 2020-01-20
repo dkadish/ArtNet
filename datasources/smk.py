@@ -2,6 +2,7 @@
 
 import logging
 import pandas as pd
+from urllib.parse import urlparse
 
 SEED = 2019
 DATAFILE = 'data/smk/smk_all_artworks.json'
@@ -43,6 +44,15 @@ class Smk():
             sample = self.public_domain_images.sample(
                 skip+nof_samples,
                 random_state=SEED)[skip:]
+
+        elif name == 'the-rest-after-next5000-not-on-iip-smk-dk':
+            skip = 1000 + 5000
+            nof_samples = len(self.public_domain_images)
+            the_rest = self.public_domain_images.sample(
+                nof_samples,
+                random_state=SEED)[skip:]
+            sample = the_rest[the_rest['image_native'].map(
+                lambda l: urlparse(l).netloc) != "iip.smk.dk"]
 
         else:
             raise ValueError(f"Sample set {name} not in {self}")
