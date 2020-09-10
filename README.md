@@ -32,3 +32,15 @@ When starting the web interface from command line, rather than WSGI etc, in dire
     python3 -m flask run # not `flask run` because it might run system wide flask
 
 ![](webui-with-slider.gif)
+
+# Jupyter Notebooks
+
+## Mace's SMK data exploration.ipynb
+Exploring properties of the JSON dataset from SMK.
+Tries to answer questions about what the fields mean, the quality of data, how to filter, etc.
+
+## A look at the results of the rest of SMK images person or people classification AMT batches.ipynb
+Verifying the results of the Amazon Mechanical Turk labelling.
+
+## CreateNewTrainFiles.ipynb
+Divided annotation XML files into a training and testing set.

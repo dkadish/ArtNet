@@ -10,3 +10,6 @@ env
 # OS and editor files
 .DS_Store
 *~
+model/
+
+data/
